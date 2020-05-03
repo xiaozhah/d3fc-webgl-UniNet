@@ -1,121 +1,161 @@
-<html>
-  <head>
-    <!-- include polyfills for custom event, Symbol and Custom Elements -->
-    <script src="//unpkg.com/babel-polyfill@6.26.0/dist/polyfill.js"></script>
-    <script src="//unpkg.com/custom-event-polyfill@0.3.0/custom-event-polyfill.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/document-register-element/1.8.0/document-register-element.js"></script>
+import { seriesSvgAnnotation } from "./annotation-series.js";
+import {
+  distance,
+  trunc,
+  hashCode,
+  webglColor,
+  iterateElements
+} from "./util.js";
 
-    <script src="//unpkg.com/d3@5.15.0/dist/d3.min.js"></script>
-    <script src="//unpkg.com/d3fc@14.2.3/build/d3fc.js"></script>
-    <script src="//unpkg.com/d3-svg-annotation@2.5.1/indexRollup.js"></script>
-    <style>
-      .annotation-note-bg {
-        fill-opacity: 0.8;
-      }
+let data = [];
+let quadtree;
 
-      .annotation-note-label,
-      .annotation-note-title {
-        fill: black;
-        font-size: 0.8em;
-      }
+const createAnnotationData = datapoint => ({
+  note: {
+    label: datapoint.lab + " " + datapoint.tone,
+    bgPadding: 5,
+  },
+  x: datapoint.x,
+  y: datapoint.y,
+  dx: 20,
+  dy: 20
+});
 
-      body {
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-      }
+// create a web worker that streams the chart data
+const streamingLoaderWorker = new Worker("streaming-tsv-parser.js");
+streamingLoaderWorker.onmessage = ({
+  data: { items, totalBytes, finished }
+}) => {
+  const rows = items
+    .map(d => ({
+      ...d,
+      x: Number(d.x),
+      y: Number(d.y),
+    }));
+  data = data.concat(rows);
 
-      #title {
-        flex-direction: row;
-        display: flex;
-        align-items: center;
-      }
+  if (finished) {
+    document.getElementById("loading").style.display = "none";
 
-      #title .subtitle {
-        margin: 5px 0 5px 20px;
-      }
+    // compute the fill color for each datapoint
+    const lab = ["a", "ai", "an", "ang", "ao", "b", "c", "ch", "d", "e", "ei", "en", "eng", "er", "f", "g", "h", "i", "ia", "ian", "iang", "iao", "ie", "ii", "iii", "in", "ing", "iong", "iou", "j", "k", "l", "m", "n", "o", "ong", "ou", "p", "q", "r", "s", "sh", "t", "u", "ua", "uai", "uan", "uang", "uei", "uen", "ueng", "uo", "v", "van", "ve", "vn", "x", "z", "zh", "sil", "sp"]
+    const lab_color = ["#781c86", "#6d1c90", "#621d99", "#571ea2", "#4e20ab", "#4a27b2","#462eb9", "#4236c1", "#403ec6", "#3f47c9", "#3f51cc", "#3e5acf","#3f63cf", "#416bce", "#4274ce", "#447ccd", "#4783c8", "#498ac4", "#4c90", "#4f97bb", "#539bb5", "#56a0ae", "#5aa5a8", "#5ea9a1", "#63ac9a", "#68af93", "#6cb28c", "#72b485", "#78b67e", "#7db877", "#83ba70", "#89bb6b", "#90bc65", "#96bd60", "#9dbe5a", "#a3be56", "#aabd52", "#b0bd4e", "#b7bd4b", "#bdbb48", "#c3ba46", "#c9b843", "#ceb541", "#d3b240", "#d8ae3e", "#dcab3c", "#dfa53b", "#e19f3a", "#e49938", "#e69237", "#e68a35", "#e68133", "#e67832", "#e56e30", "#e4632e", "#e2582c", "#e04e29", "#df4327", "#dd3726", "#dc2c24", "#db2122"]
+    //创建音素与对应颜色的序数比例尺
+    const lab_f = d3.scaleOrdinal().domain(lab).range(lab_color);
 
-      #title .subtitle h2 {
-        margin: 5px 0;
-      }
+    const tone = ["0", "1", "2", "3", "4", "6", "7", "8", "9", "sil", "XX"]
+    const tone_color = ["#781c86", "#462eb9", "#3f63cf", "#4c90c0", "#63ac9a", "#83ba70", "#aabd52", "#ceb541", "#e49938", "#e4632e", "#db2122"]
+    const tone_f = d3.scaleOrdinal().domain(tone).range(tone_color);
 
-      #title .controls {
-        margin: 5px 0 5px 20px;
-        margin-right: 3em;
-        text-align: right;
-        flex: 1;
-      }
+    const labFill = d => webglColor(lab_f(d.lab));
+    const toneFill = d => webglColor(tone_f(d.tone));
 
-      #chart-container {
-        flex: 1;
-        position: relative;
-      }
+    const fillColor = fc.webglFillColor().value(labFill).data(data);
+    pointSeries.decorate(program => fillColor(program));
 
-      #chart-container > div {
-        position: absolute;
-        top: 0; bottom: 0; right: 0; left: 0;
-        text-align: middle;
-        vertical-align: middle;
-      }
+    // wire up the fill color selector
+    iterateElements(".controls a", el => {
+      el.addEventListener("click", () => {
+        iterateElements(".controls a", el2 => el2.classList.remove("active"));
+        el.classList.add("active");
+        fillColor.value(el.id === "lab" ? labFill : toneFill);
+        redraw();
+      });
+    });
 
-      #loading {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(255, 255, 255, 0.7);
-      }
+    // create a spatial index for rapidly finding the closest datapoint
+    quadtree = d3
+      .quadtree()
+      .x(d => d.x)
+      .y(d => d.y)
+      .addAll(data);
+  }
 
-      #loading span {
-        flex: 1;
-        text-align: center;
-        font-size: 5em;
-      }
+  redraw();
+};
+streamingLoaderWorker.postMessage("UniNet_encoder_tSNE.tsv");
 
-      #chart d3fc-group {
-        grid-template-columns: 1em auto 1fr 1em 0;
-        grid-template-rows: 0 auto 1fr 1em 0;
-      }
+const xScale = d3.scaleLinear().domain([-20, 20]);
+const yScale = d3.scaleLinear().domain([-20, 20]);
+const xScaleOriginal = xScale.copy();
+const yScaleOriginal = yScale.copy();
 
-      .tick text {
-        display: none;
-      }
+const pointSeries = fc
+  .seriesWebglPoint()
+  .equals((a, b) => a === b)
+  .size(1)
+  .crossValue(d => d.x)
+  .mainValue(d => d.y);
 
-      a,
-      a:visited,
-      a:active {
-        color: rgb(86, 26, 129);
-        text-decoration: none;
-      }
+const zoom = d3
+  .zoom()
+  .scaleExtent([0.8, 50])
+  .on("zoom", () => {
+    // update the scales based on current zoom
+    xScale.domain(d3.event.transform.rescaleX(xScaleOriginal).domain());
+    yScale.domain(d3.event.transform.rescaleY(yScaleOriginal).domain());
+    redraw();
+  });
 
-      a.active,
-      a:hover {
-        text-decoration: underline;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="title">
-      <div class="subtitle">
-        <h2>Hathi Trust Library</h2>
-        <small>sourcecode available on 
-        <a href="https://github.com/ColinEberhardt/d3fc-webgl-hathi-explorer"
-          >GitHub</a
-        ></small>
-      </div>
-      <div class="controls">
-        <a href="#" id="language" class="active">Language</a> |
-        <a id="year" href="#">Year</a> 
-      </div>
-    </div>
+const annotations = [];
 
-    <div id="chart-container">
-      <div id="chart"></div>
-      <div id="loading"><span>loading...</span></div>
-    </div>
+const pointer = fc.pointer().on("point", ([coord]) => {
+  annotations.pop();
 
-    <script src="index.js" type="module"></script>
-  </body>
-</html>
+  if (!coord || !quadtree) {
+    return;
+  }
+
+  // find the closes datapoint to the pointer
+  const x = xScale.invert(coord.x);
+  const y = yScale.invert(coord.y);
+  const radius = Math.abs(xScale.invert(coord.x) - xScale.invert(coord.x - 20));
+  const closestDatum = quadtree.find(x, y, radius);
+
+  // if the closest point is within 20 pixels, show the annotation
+  if (closestDatum) {
+    annotations[0] = createAnnotationData(closestDatum);
+    console.log(closestDatum)
+    new Audio("./wav_phone/"+closestDatum.name+".wav").play();
+  }
+
+  redraw();
+});
+
+const annotationSeries = seriesSvgAnnotation()
+  .notePadding(15)
+  .type(d3.annotationCallout);
+
+const chart = fc
+  .chartCartesian(xScale, yScale)
+  .webglPlotArea(
+    // only render the point series on the WebGL layer
+    fc
+      .seriesWebglMulti()
+      .series([pointSeries])
+      .mapping(d => d.data)
+  )
+  .svgPlotArea(
+    // only render the annotations series on the SVG layer
+    fc
+      .seriesSvgMulti()
+      .series([annotationSeries])
+      .mapping(d => d.annotations)
+  )
+  .decorate(sel =>
+    sel
+      .enter()
+      .select("d3fc-svg.plot-area")
+      .on("measure.range", () => {
+        xScaleOriginal.range([0, d3.event.detail.width]);
+        yScaleOriginal.range([d3.event.detail.height, 0]);
+      })
+      .call(zoom)
+      .call(pointer)
+  );
+
+// render the chart with the required data
+// Enqueues a redraw to occur on the next animation frame
+const redraw = () => {
+  d3.select("#chart").datum({ annotations, data }).call(chart);
+};
