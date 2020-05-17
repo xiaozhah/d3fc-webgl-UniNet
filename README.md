@@ -22,5 +22,5 @@ This implementation uses D3FC's WebGL Series.
 git clone git@github.com:xiaozhah/Visualization-of-Unit-Vectors.git
 cd Visualization-of-Unit-Vectors
 python -m SimpleHTTPServer
-# then open http://localhost:8000/UniNet_encoder in Chrome
+# then open http://localhost:8000 in Chrome
 ```
