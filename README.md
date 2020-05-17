@@ -1,3 +1,4 @@
+
 # UniNet: A Unified Sequence-to-Sequence Model for Parametric and Concatenative Speech Synthesis
 
 
@@ -20,28 +21,11 @@ python -m SimpleHTTPServer
 # then open http://localhost:8000/UniNet_encoder in Chrome
 ```
 
-### UniNet encoder
-#### Interactive demo page without audio: 
+### [UniNet encoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet%20encoder)
+### [UniNet decoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet%20decoder)
+### [Tacotron2 encoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/Tacotron2%20encoder)
 
-* https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet_encoder
-#### demo video with audio
-* https://youtu.be/HYS_PAVkzf8 (real-time version, can zoom, cannot dispaly duration, the same below) 
-* https://youtu.be/ku7fC3lFov4 (slow version, cannot zoom, can dipaly duration, the same below)
-
-### UniNet decoder
-#### Interactive demo page without audio: 
-
-* https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet_decoder
-#### demo video with audio
-* https://youtu.be/tQ6Jhd_vmLE (real-time version) 
-* https://youtu.be/CDQKWjwsnNA (slow version)
-
-### Tacotron2 encoder
-#### Interactive demo page without audio:
-
-* https://xiaozhah.github.io/Visualization-of-Unit-Vectors/Tacotron2_encoder
-#### demo video with audio
-
-* https://youtu.be/r0-2wFxWCEg (real-time version) 
-* https://youtu.be/H-ki9qMQ91I (slow version)
-
+### demo video with audio
+* [UniNet encoder](https://youtu.be/)
+* [UniNet decoder](https://youtu.be/)
+* [Tacotron2 encoder](https://youtu.be/)
