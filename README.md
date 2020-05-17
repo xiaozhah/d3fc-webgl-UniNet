@@ -21,11 +21,7 @@ python -m SimpleHTTPServer
 # then open http://localhost:8000/UniNet_encoder in Chrome
 ```
 
-### [UniNet encoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet%20encoder)
-### [UniNet decoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet%20decoder)
-### [Tacotron2 encoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/Tacotron2%20encoder)
-
-### demo video with audio
-* [UniNet encoder](https://youtu.be/)
-* [UniNet decoder](https://youtu.be/)
-* [Tacotron2 encoder](https://youtu.be/)
+### Interactive demo video with audio
+* [UniNet encoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet%20encoder)
+* [UniNet decoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet%20decoder)
+* [Tacotron2 encoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/Tacotron2%20encoder)
