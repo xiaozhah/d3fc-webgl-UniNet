@@ -12,12 +12,12 @@ A re-implementation of Colin Eberhardt's [t-SNE Plot](https://github.com/ColinEb
 
 This implementation uses D3FC's WebGL Series.
 
-### Interactive demo video with audio
+### Interactive demos online
 * [UniNet encoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet%20encoder)
 * [UniNet decoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet%20decoder)
 * [Tacotron2 encoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/Tacotron2%20encoder)
 
-### Self-built HTTP server
+### Interactive demos offline
 ```
 git clone git@github.com:xiaozhah/Visualization-of-Unit-Vectors.git
 cd Visualization-of-Unit-Vectors
