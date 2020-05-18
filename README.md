@@ -17,7 +17,7 @@ This implementation uses D3FC's WebGL Series.
 * [UniNet decoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet%20decoder)
 * [Tacotron2 encoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/Tacotron2%20encoder)
 
-### Demos with audio on YouTube
+### demos with audio on YouTube
 * [UniNet encoder](https://youtu.be/Jne83LuJ28o)
 * [UniNet decoder](https://youtu.be/xUDTWeyf9Ps)
 * [Tacotron2 encoder](https://youtu.be/0Yrf6dRKhd4)
