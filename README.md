@@ -8,10 +8,6 @@ https://xiaozhah.github.io/UniNet_speech_demos
 ## t-SNE visualization of the phone-dependent distributions of the unit vectors
 ![image](vis_unit_vectors.jpg)
 
-A re-implementation of Colin Eberhardt's [t-SNE Plot](https://github.com/ColinEberhardt/d3fc-webgl-hathi-explorer) of Hathi Trust library books clustered using [t-SNE](https://en.wikipedia.org/wiki/T-distributed_stochastic_neighbor_embedding).
-
-This implementation uses D3FC's WebGL Series.
-
 ### online interactive demos
 * [UniNet encoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet%20encoder)
 * [UniNet decoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet%20decoder)
