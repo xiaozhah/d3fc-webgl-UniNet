@@ -13,9 +13,14 @@ A re-implementation of Colin Eberhardt's [t-SNE Plot](https://github.com/ColinEb
 This implementation uses D3FC's WebGL Series.
 
 ### online interactive demos
-* [UniNet encoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet%20encoder) [video with audio][https://youtu.be/Jne83LuJ28o]
-* [UniNet decoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet%20decoder) [video with audio](https://youtu.be/xUDTWeyf9Ps)
-* [Tacotron2 encoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/Tacotron2%20encoder) [video with audio](https://youtu.be/0Yrf6dRKhd4)
+* [UniNet encoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet%20encoder)
+* [UniNet decoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet%20decoder)
+* [Tacotron2 encoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/Tacotron2%20encoder)
+
+## Demos with audio on YouTube
+* [UniNet encoder](https://youtu.be/Jne83LuJ28o)
+* [UniNet decoder](https://youtu.be/xUDTWeyf9Ps)
+* [Tacotron2 encoder](https://youtu.be/0Yrf6dRKhd4)
 
 ### offline interactive demos
 ```
