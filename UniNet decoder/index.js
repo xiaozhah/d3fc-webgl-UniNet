@@ -12,7 +12,7 @@ import {
 var data = [];
 var quadtree;
 var labFill, toneFill, fillColor, color_labFill, color_toneFill;
-var closestDatum, cur_lab = "undefined";
+var closestDatum, render_status = 'all', render_lab, render_tone;
 var lab_selectedQ = true, tone_selectedQ = false;
 
 const createAnnotationData = datapoint => ({
@@ -136,12 +136,21 @@ const annotations = [];
 
 d3.select("#chart").on('click', () => {
   if (typeof (closestDatum) == "undefined") {
-    cur_lab = "undefined";
+    render_status = 'all';
     fillColor.value(lab_selectedQ ? labFill : toneFill);
-  } else if (lab_selectedQ)
-    fillColor.value(color_labFill[closestDatum.lab]);
-  else if (tone_selectedQ)
-    fillColor.value(color_toneFill[closestDatum.tone]);
+  } else {
+    if (lab_selectedQ)
+    {
+      render_status = 'local_lab';
+      render_lab = closestDatum.lab;
+      fillColor.value(color_labFill[render_lab]);
+    }
+    else if (tone_selectedQ)
+    {
+      render_status = 'local_tone';
+      render_tone = closestDatum.tone;
+      fillColor.value(color_toneFill[render_tone]);
+    }}
   redraw();
 });
 
@@ -161,7 +170,12 @@ const pointer = fc.pointer().on("point", ([coord]) => {
   // if the closest point is within 20 pixels, show the annotation
   if (closestDatum) {
     annotations[0] = createAnnotationData(closestDatum);
-    //new Audio("wav_phone/"+closestDatum.name+".wav").play();
+    //if (render_status === 'all')
+    //  new Audio("wav_phone/"+closestDatum.name+".wav").play();
+    //else if (render_status === 'local_lab' && closestDatum.lab === render_lab)
+    //  new Audio("wav_phone/"+closestDatum.name+".wav").play();
+    //else if (render_status === 'local_tone' && closestDatum.tone === render_tone)
+    //  new Audio("wav_phone/"+closestDatum.name+".wav").play();
   }
 
   redraw();
