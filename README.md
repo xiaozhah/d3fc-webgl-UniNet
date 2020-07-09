@@ -22,6 +22,8 @@ https://xiaozhah.github.io/UniNet_speech_demos
 ```
 git clone git@github.com:xiaozhah/Visualization-of-Unit-Vectors.git
 cd Visualization-of-Unit-Vectors
+# python3 -m http.server 
+# python2
 python -m SimpleHTTPServer
 # then open http://localhost:8000 in Chrome
 ```
