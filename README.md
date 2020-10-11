@@ -1,12 +1,11 @@
 
-# UniNet: A Unified Sequence-to-Sequence Model for Parametric and Concatenative Speech Synthesis
-
+# UniNet: A Sequence-to-Sequence Model for Concatenative Speech Synthesis
 
 ## Speech demos
 https://xiaozhah.github.io/UniNet_speech_demos
 
-## t-SNE visualization of the phone-dependent distributions of the unit vectors
-![image](vis_unit_vectors.jpg)
+## t-SNE visualization of the phone-dependent distributions of the unit embeddings
+![image](vis_unit_embeddings.jpg)
 
 ### online interactive demos
 * [UniNet encoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet%20encoder)
