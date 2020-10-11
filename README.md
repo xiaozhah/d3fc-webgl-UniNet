@@ -1,5 +1,5 @@
-
 # UniNet: A Sequence-to-Sequence Model for Concatenative Speech Synthesis
+<img src="UnitNet_LOGO.svg" width="300">
 
 ## Speech demos
 https://xiaozhah.github.io/UniNet_speech_demos
