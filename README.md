@@ -8,9 +8,9 @@ https://xiaozhah.github.io/UniNet_speech_demos
 ![image](vis_unit_vectors.jpg)
 
 ### online interactive demos
-* [UniNet encoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet%20encoder)
-* [UniNet decoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/UniNet%20decoder)
-* [Tacotron2 encoder](https://xiaozhah.github.io/Visualization-of-Unit-Vectors/Tacotron2%20encoder)
+* [UniNet encoder](https://xiaozhah.github.io/Visualization-of-Unit-Embeddings/UniNet%20encoder)
+* [UniNet decoder](https://xiaozhah.github.io/Visualization-of-Unit-Embeddings/UniNet%20decoder)
+* [Tacotron2 encoder](https://xiaozhah.github.io/Visualization-of-Unit-Embeddings/Tacotron2%20encoder)
 
 ### demos with audio on YouTube
 * [UniNet encoder](https://youtu.be/Jne83LuJ28o)
@@ -19,8 +19,8 @@ https://xiaozhah.github.io/UniNet_speech_demos
 
 ### offline interactive demos
 ```
-git clone https://github.com/xiaozhah/Visualization-of-Unit-Vectors.git
-cd Visualization-of-Unit-Vectors
+git clone https://github.com/xiaozhah/Visualization-of-Unit-Embeddings.git
+cd Visualization-of-Unit-Embeddings
 # python3 -m http.server 
 # python2
 python -m SimpleHTTPServer
