@@ -1,4 +1,4 @@
-# UnitNet: A Sequence-to-Sequence Model for Concatenative Speech Synthesis
+# UnitNet: A Sequence-to-Sequence Acoustic Model for Concatenative Speech Synthesis
 <img src="UnitNet_LOGO.svg" width="300">
 
 ## Speech demos
