@@ -1,20 +1,20 @@
-# UniNet: A Sequence-to-Sequence Model for Concatenative Speech Synthesis
+# UnitNet: A Sequence-to-Sequence Model for Concatenative Speech Synthesis
 <img src="UnitNet_LOGO.svg" width="300">
 
 ## Speech demos
-https://xiaozhah.github.io/UniNet_speech_demos
+https://xiaozhah.github.io/UnitNet_speech_demos
 
 ## t-SNE visualization of the phone-dependent distributions of the unit embeddings
 ![image](vis_unit_vectors.jpg)
 
 ### online interactive demos
-* [UniNet encoder](https://xiaozhah.github.io/Visualization-of-Unit-Embeddings/UniNet%20encoder)
-* [UniNet decoder](https://xiaozhah.github.io/Visualization-of-Unit-Embeddings/UniNet%20decoder)
+* [UnitNet encoder](https://xiaozhah.github.io/Visualization-of-Unit-Embeddings/UnitNet%20encoder)
+* [UnitNet decoder](https://xiaozhah.github.io/Visualization-of-Unit-Embeddings/UnitNet%20decoder)
 * [Tacotron2 encoder](https://xiaozhah.github.io/Visualization-of-Unit-Embeddings/Tacotron2%20encoder)
 
 ### demos with audio on YouTube
-* [UniNet encoder](https://youtu.be/Jne83LuJ28o)
-* [UniNet decoder](https://youtu.be/xUDTWeyf9Ps)
+* [UnitNet encoder](https://youtu.be/Jne83LuJ28o)
+* [UnitNet decoder](https://youtu.be/xUDTWeyf9Ps)
 * [Tacotron2 encoder](https://youtu.be/0Yrf6dRKhd4)
 
 ### offline interactive demos
