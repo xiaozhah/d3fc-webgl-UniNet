@@ -108,7 +108,7 @@ streamingLoaderWorker.onmessage = ({
   redraw();
 };
 
-streamingLoaderWorker.postMessage("UniNet encoder.tsv");
+streamingLoaderWorker.postMessage("UnitNet encoder.tsv");
 
 const xScale = d3.scaleLinear().domain([-20, 20]);
 const yScale = d3.scaleLinear().domain([-20, 20]);
