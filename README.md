@@ -5,7 +5,7 @@
 https://xiaozhah.github.io/UnitNet_speech_demos
 
 ## t-SNE visualization of the phone-dependent distributions of the unit embeddings
-![image](vis_unit_embeddings.jpg)
+![image](vis_unit_embeddings.png)
 
 ### online interactive demos
 * [UnitNet encoder](https://xiaozhah.github.io/Visualization-of-Unit-Embeddings/UnitNet%20encoder)
