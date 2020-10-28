@@ -24,5 +24,7 @@ cd Visualization-of-Unit-Embeddings
 # python3 -m http.server 
 # python2
 python -m SimpleHTTPServer
-# then open http://localhost:8000 in Chrome
+# 127.0.0.1:8000/UnitNet%20encoder/
+# 127.0.0.1:8000/UnitNet%20decoder/
+# 127.0.0.1:8000/Tacotron2%20encoder/
 ```
