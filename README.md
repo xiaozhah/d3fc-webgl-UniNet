@@ -21,9 +21,10 @@ https://xiaozhah.github.io/UnitNet_speech_demos
 ```
 git clone https://github.com/xiaozhah/Visualization-of-Unit-Embeddings.git
 cd Visualization-of-Unit-Embeddings
-# python3 -m http.server 
-# python2
+python3 -m http.server
+# or
 python -m SimpleHTTPServer
+
 # 127.0.0.1:8000/UnitNet%20encoder/
 # 127.0.0.1:8000/UnitNet%20decoder/
 # 127.0.0.1:8000/Tacotron2%20encoder/
